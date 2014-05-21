@@ -72,4 +72,19 @@ class Coordenada {
     public void setY(byte _y) {
         Y = _y;
     }
+
+    public boolean estado() {
+        if(ficha == null)
+            return false;
+        else
+            return true;
+    }
+
+    public Ficha getFicha() {
+        return ficha;
+    }
+
+    public void setFicha(Ficha _ficha) {
+        ficha = _ficha;
+    }
 }
