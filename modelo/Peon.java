@@ -6,6 +6,7 @@ class Peon implements Pieza {
     Coordenada coordenada;
     byte direccion;
     boolean primera_vez;
+
     public Peon() {
     }
 
@@ -35,22 +36,24 @@ class Peon implements Pieza {
 
     public boolean validarMovimiento(Coordenada coordenada_nueva) {
         //Sin declaracion
+        return false;
     }
 
     public boolean capturarFicha(Coordenada coordenada_nueva) {
         if (coordenada_nueva.getX() == coordenada.getX() ) {
-            if (coordenada.getY()+(1*direccion) == coordenada_nueva.getY())
+            if ((coordenada.getY()+(1*direccion)) == coordenada_nueva.getY())
                 return true;
             else if (primera_vez) {
-                if (coordenada.getY+(2*direccion) == coordenada_nueva.getY())
+                if (coordenada.getY()+(2*direccion) == coordenada_nueva.getY())
                     return true;
             }
 
         }
         else if ( coordenada_nueva.estado() ) {
-            if(coordenada_nueva.getX() == coordenada.getX()+1 || 
-                    coordenada_nueva.getX() == coordenada.getX()-1)
+            if(coordenada_nueva.getX().getValue() == coordenada.getX().getValue()+1 || 
+                    coordenada_nueva.getX().getValue() == coordenada.getX().getValue()-1)
                 return false;
         }
+        return false;
     }
 }

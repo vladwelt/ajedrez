@@ -5,6 +5,6 @@ interface Pieza {
     Coordenada getCoordenada();
     void setColor(boolean _color);
     boolean getColor();
-    void setDireccion();
+    void setDireccion(byte _direccion);
     boolean validarMovimiento(Coordenada x);
 }
