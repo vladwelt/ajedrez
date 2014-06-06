@@ -17,6 +17,7 @@ class PanelTabla extends JPanel {
                 this.add(tabla[x][y]);
             }
         }
+        pintarTabla();
     }
 
     private void pintarTabla() {
@@ -26,7 +27,7 @@ class PanelTabla extends JPanel {
                 if(tipoColor)
                     tabla[posicion.getValue()][y].setBackground(Color.WHITE);
                 else
-                    tabla[posicion.getValue()][y].setBackground(Color.BLACK);
+                    tabla[posicion.getValue()][y].setBackground(Color.DARK_GRAY);
                 tipoColor = !tipoColor;
             }
             tipoColor = !tipoColor;

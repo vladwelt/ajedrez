@@ -13,10 +13,12 @@ class Ajedrez extends JFrame {
        tablero = new Tablero();
        instructor = new PanelInterpretador(tablero);
        tabla = new PanelTabla(tablero);
-       this.add(tabla,"North");
-       this.add(instructor,"Center");
+       this.add(tabla,"Center");
+       this.add(instructor,"South");
+       this.add(new JPanel(),"East");
+       this.add(new JPanel(),"West");
        this.setTitle("Ajedrez simplificado v1.0");
-       this.setSize(800,800);
+       this.setSize(600,600);
        setLocationRelativeTo(null);
        setVisible(true);
     }

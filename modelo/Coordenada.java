@@ -27,7 +27,7 @@ class Coordenada {
         Y = _y;
     }
 
-    public boolean estado() {
+    public boolean hayFicha() {
         if(ficha == null)
             return false;
         else
