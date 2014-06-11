@@ -6,8 +6,10 @@ import java.awt.*;
 class PanelTabla extends JPanel {
 
     private JButton[][] tabla;
+    private Tablero tablero;
 
     public PanelTabla(Tablero _tabla) {
+        tablero = _tabla;
         super(new GridLayout(8,8));
         tabla = new JButton[8][8];
         for(Abscisa posicion : Abscisa.values()){
