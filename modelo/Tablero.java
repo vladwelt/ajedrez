@@ -14,66 +14,86 @@ class Tablero {
         }
     }
 
-    public boolean moverFicha(Coordenada posicion_antigua,
-            Coordenada posicion_nueva) {
+    public boolean moverFicha(Coordenada origen,
+            Coordenada destino) {
 
-        if(!posicion_antigua.hayFicha())
+        if(!origen.hayFicha())
             return false;
 
-        if(!validar_diferencia_posicion(posicion_antigua, posicion_nueva))
+        if(!validar_diferencia_posicion(origen, destino))
             return false;
 
-        if(!posicion_antigua.getFicha().validarCoordenada(posicion_nueva))
-            return false;
-
-        if(posicion_nueva.hayFicha())
-            if(!validar_diferencia_color(posicion_antigua,posicion_nueva))
+        if(destino.hayFicha())
+            if(!validar_diferencia_color(origen, destino))
                 return false;
 
-        if(validarRecorrido(coordenada_antigua)) {
-        }
-        
+        if(!origen.getFicha().validarCoordenada(origen, destino,this))
+            return false;
+
+        return true;
     }
 
-    public boolean validar_recorrido_diagonal(Coordenada posicion1,
-            Coordenada posicion2) {
-        if(valor_absoluto( posicion1.getX().getValue()-
-                    posicion2.getX().getValue() ) == 
-                valor_absoluto( posicion1.getY()-
-                    posicion2.getY() ) ) {
-                return true;
+    public boolean validar_recorrido_diagonal(Coordenada origen,
+            Coordenada destino) {
+        byte x1 = origen.getX().getValue();
+        byte x2 = destino.getX().getValue();
+        byte y1 = origen.getY();
+        byte y2 = destino.getY();
+        byte incrementadorx = determinar_incrementador(x1,x2);
+        byte incrementadory = determinar_incrementador(y1,y2);
+        while(x1 != x2 && y1!=y2) {
+            x1 += incrementador;
+            y1 += incrementador;
+            if(tablero[x1][y1].getFicha() != null) {
+                if(tablero[x1][y1].getFicha().getColor == 
+                        origen.getFicha().getColor())
+                    return false;
+                if(x1 == x2)
+                    return true;
+                else
+                    return false;
             }
+        }
+
     }
 
-    public boolean validar_recorrido_recto(Coordenada posicion1,
-           Coordenada posicion2) {
-        if(posicion1.getX().equals(posicion2.getX()) || 
-                posicion1.getY() == posicion2.getY())
-            return true;
+    public boolean validar_recorrido_vertical(byte y1, byte y2,
+           byte x, boolean color) {
+        byte incrementador = determinar_incrementador(y1,y2);
+
+        while(y1 != y2) {
+            y1 += incrementador;
+            if(tablero[x][y1].getFicha() != null){
+                if(tablero[x][y1].getFicha().getColor() == color)
+                    return false;
+                if(y1==y2)
+                    return true;
+                else
+                    return false;
+            }
+        }
     }
 
-    public boolean validar_posicion_l(Coordenada posicion1,
-           Coordenada posicion2) {
-        if(posicion1.getX().equals(posicion2.getX()))
-            return false;
-        if(posicion1.getY == posicion2.getY())
-            return false;
+    public boolean validar_recorrido_horizontal(byte x1, byte x2, byte y) {
+        byte incrementador = determinar_incrementador(x1,x2);
+        while(x1 != x2) {
+            x1 += incrementador;
+            if(tablero[x1][y].getFicha() != null){
+                if(tablero[x1][y].getFicha().getColor() == color)
+                    return false;
+                if(x1==x2)
+                    return true;
+                else
+                    return false;
+            }
+        }
+    }
 
-        int diferencia = valor_absoluto(posicion1.getX().getValue() - 
-            posicion2.getX().getValue());
-        diferencia += valor_absoluto(posicion1.getY()-posicion2.getY());
-        
-        if(diferencia == 3)
-            return true;
+    private byte determinar_incrementador(byte x1, byte x2) {
+        if(x1 > x2)
+            return -1;
         else
-            return false;
-    }
-
-    public boolean validar_camina(Coordenada posicion1,
-            Coordenada posicion2) {
-        if (validar_diferencia())
-            return false;
-
+            return 1;
     }
 
     public boolean validar_diferencia_posicion(Coordenada primera,
@@ -89,12 +109,6 @@ class Tablero {
     public boolean validar_diferencia_color(Coordenada primera,
             Coordenada segunda) {
         return !(primera.getFicha().getColor() == segunda.getFicha().getColor());
-    }
-
-    public byte valor_absoluto(byte numero){
-        if(numero < 0)
-            return numero * -1;
-        return numero;
     }
 }
 

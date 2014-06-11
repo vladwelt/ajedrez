@@ -1,10 +1,20 @@
 package ajedrez;
 
-interface Pieza {
-    void setCoordenada(Coordenada x);
-    Coordenada getCoordenada();
-    void setColor(boolean _color);
-    boolean getColor();
-    void setDireccion(byte _direccion);
-    boolean validarMovimiento(Coordenada x);
+abstract class Pieza {
+    
+    boolean color;
+
+    public Pieza(boolean _color) {
+        color = _color;
+    }
+    
+    public void setColor(boolean _color) {
+        color = _color;
+    }
+
+    public boolean getColor() {
+        return color;
+    }
+
+    abstract public boolean validarMovimiento(Coordenada origen, Coordenada destino);
 }
